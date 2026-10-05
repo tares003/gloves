@@ -1,0 +1,37 @@
+{
+	email {$ACME_EMAIL}
+}
+
+# Storefront — irongrip.uk (and www → apex)
+{$SITE_HOST} {
+	encode zstd gzip
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		-Server
+	}
+	reverse_proxy storefront:3000
+}
+
+www.{$SITE_HOST} {
+	redir https://{$SITE_HOST}{uri} permanent
+}
+
+# Saleor GraphQL API + media
+{$API_HOST} {
+	encode zstd gzip
+	header -Server
+	reverse_proxy api:8000
+}
+
+# Saleor Dashboard — extra basic-auth layer in front of Saleor's own login
+{$ADMIN_HOST} {
+	encode zstd gzip
+	basic_auth {
+		{$ADMIN_BASIC_AUTH_USER} {$ADMIN_BASIC_AUTH_HASH}
+	}
+	header -Server
+	reverse_proxy dashboard:80
+}

@@ -1,0 +1,131 @@
+# IronGrip — full stack for the VM (and local dev with `--profile dev`).
+#
+#   docker compose --env-file .env up -d db cache api worker dashboard caddy
+#   docker compose --env-file .env run --rm api python manage.py migrate
+#   docker compose --env-file .env build storefront && docker compose --env-file .env up -d storefront
+#
+# Saleor core runs from official images, pinned. Never fork or modify core.
+
+name: irongrip
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-saleor}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+      POSTGRES_DB: saleor
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./db-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-saleor}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  cache:
+    image: valkey/valkey:8.1-alpine
+    restart: unless-stopped
+    volumes:
+      - cache-data:/data
+
+  api:
+    image: ghcr.io/saleor/saleor:${SALEOR_VERSION:-3.23}
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      cache:
+        condition: service_started
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-saleor}:${POSTGRES_PASSWORD}@db:5432/saleor
+      CACHE_URL: redis://cache:6379/0
+      CELERY_BROKER_URL: redis://cache:6379/1
+    volumes:
+      - media:/app/media
+    expose:
+      - "8000"
+
+  worker:
+    image: ghcr.io/saleor/saleor:${SALEOR_VERSION:-3.23}
+    restart: unless-stopped
+    command: celery -A saleor --app=saleor.celeryconf:app worker --loglevel=info -B
+    depends_on:
+      - api
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-saleor}:${POSTGRES_PASSWORD}@db:5432/saleor
+      CACHE_URL: redis://cache:6379/0
+      CELERY_BROKER_URL: redis://cache:6379/1
+    volumes:
+      - media:/app/media
+
+  dashboard:
+    image: ghcr.io/saleor/saleor-dashboard:${SALEOR_VERSION:-3.23}
+    restart: unless-stopped
+    environment:
+      API_URL: https://${API_HOST}/graphql/
+    expose:
+      - "80"
+
+  storefront:
+    build:
+      context: ../storefront
+      network: host
+      args:
+        NEXT_PUBLIC_SALEOR_API_URL: https://${API_HOST}/graphql/
+        NEXT_PUBLIC_STOREFRONT_URL: https://${SITE_HOST}
+        NEXT_PUBLIC_DEFAULT_CHANNEL: uk
+        NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${TURNSTILE_SITE_KEY:-}
+    restart: unless-stopped
+    depends_on:
+      - api
+    environment:
+      FORMS_DATABASE_URL: postgres://${POSTGRES_USER:-saleor}:${POSTGRES_PASSWORD}@db:5432/forms
+      SMTP_URL: ${SMTP_URL:-}
+      FORMS_NOTIFY_EMAIL: ${FORMS_NOTIFY_EMAIL:-hello@irongrip.uk}
+      FORMS_TRADE_EMAIL: ${FORMS_TRADE_EMAIL:-trade@irongrip.uk}
+      FORMS_FROM_EMAIL: ${FORMS_FROM_EMAIL:-IronGrip website <website@irongrip.uk>}
+      TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY:-}
+    expose:
+      - "3000"
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      - api
+      - dashboard
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      SITE_HOST: ${SITE_HOST}
+      API_HOST: ${API_HOST}
+      ADMIN_HOST: ${ADMIN_HOST}
+      ACME_EMAIL: ${ACME_EMAIL}
+      ADMIN_BASIC_AUTH_USER: ${ADMIN_BASIC_AUTH_USER:-admin}
+      ADMIN_BASIC_AUTH_HASH: ${ADMIN_BASIC_AUTH_HASH}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+
+  # Local development only: catches all outgoing email at http://localhost:8025
+  mailpit:
+    image: axllent/mailpit
+    profiles: ["dev"]
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+volumes:
+  db-data:
+  cache-data:
+  media:
+  caddy-data:
+  caddy-config:
