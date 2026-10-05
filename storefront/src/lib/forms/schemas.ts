@@ -27,18 +27,42 @@ export const MONTHLY_BOXES = ["1–5", "6–20", "21–50", "50+"] as const;
 
 export const USE_TYPES = ["Business", "Home"] as const;
 
-export const GLOVE_INTERESTS = ["Heavy duty", "Everyday", "Chemical resistant", "Food safe", "Not sure yet"] as const;
+export const GLOVE_INTERESTS = [
+	"Heavy duty",
+	"Everyday",
+	"Chemical resistant",
+	"Food safe",
+	"Not sure yet",
+] as const;
 
-export const tradeSchema = z.object({
-	name: requiredText("your name", 120),
-	businessName: requiredText("your business name", 160),
-	businessType: z.enum(BUSINESS_TYPES, { message: "Please choose your business type." }),
-	email,
-	phone: optionalPhone,
-	monthlyBoxes: z.enum(MONTHLY_BOXES, { message: "Please choose roughly how many boxes a month." }),
-	message: trimmed(2000).optional(),
-	marketingConsent: checkbox,
-});
+/** Business type that needs the free-text "please specify" field. */
+export const OTHER_BUSINESS_TYPE = "Other" satisfies (typeof BUSINESS_TYPES)[number];
+
+export const tradeSchema = z
+	.object({
+		name: requiredText("your name", 120),
+		businessName: requiredText("your business name", 160),
+		businessType: z.enum(BUSINESS_TYPES, { message: "Please choose your business type." }),
+		businessTypeOther: trimmed(120).optional(),
+		email,
+		phone: optionalPhone,
+		monthlyBoxes: z.enum(MONTHLY_BOXES, { message: "Please choose roughly how many boxes a month." }),
+		message: trimmed(2000).optional(),
+		marketingConsent: checkbox,
+	})
+	.superRefine((data, ctx) => {
+		if (data.businessType === OTHER_BUSINESS_TYPE && !data.businessTypeOther) {
+			ctx.addIssue({
+				code: "custom",
+				path: ["businessTypeOther"],
+				message: "Please tell us your business type.",
+			});
+		}
+	})
+	// Only keep the free text when "Other" was chosen.
+	.transform(({ businessTypeOther, ...data }) =>
+		data.businessType === OTHER_BUSINESS_TYPE ? { ...data, businessTypeOther } : data,
+	);
 
 export const waitlistSchema = z.object({
 	firstName: requiredText("your first name", 80),

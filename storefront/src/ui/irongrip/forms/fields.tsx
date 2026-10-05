@@ -124,7 +124,8 @@ export function SelectField({
 	required,
 	hint,
 	options,
-}: BaseFieldProps & { options: readonly string[] }) {
+	onChange,
+}: BaseFieldProps & { options: readonly string[]; onChange?: (value: string) => void }) {
 	const id = useId();
 	const error = state.fieldErrors?.[name];
 	return (
@@ -134,6 +135,7 @@ export function SelectField({
 				name={name}
 				required={required}
 				defaultValue={state.values?.[name] ?? ""}
+				onChange={onChange ? (event) => onChange(event.target.value) : undefined}
 				aria-invalid={error ? true : undefined}
 				aria-describedby={describedBy(id, hint, error)}
 				className={inputClass}

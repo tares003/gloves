@@ -46,6 +46,29 @@ describe("schemas", () => {
 		}
 	});
 
+	it("requires the business type to be specified when Other is chosen", () => {
+		const missing = tradeSchema.safeParse({ ...validTrade, businessType: "Other" });
+		expect(missing.success).toBe(false);
+		if (!missing.success) {
+			expect(toFieldErrors(missing.error)["businessTypeOther"]).toBe("Please tell us your business type.");
+		}
+
+		const blank = tradeSchema.safeParse({ ...validTrade, businessType: "Other", businessTypeOther: "   " });
+		expect(blank.success).toBe(false);
+
+		const parsed = tradeSchema.parse({
+			...validTrade,
+			businessType: "Other",
+			businessTypeOther: " Dog grooming ",
+		});
+		expect(parsed).toMatchObject({ businessType: "Other", businessTypeOther: "Dog grooming" });
+	});
+
+	it("drops the specify text when a listed business type is chosen", () => {
+		const parsed = tradeSchema.parse({ ...validTrade, businessTypeOther: "left over" });
+		expect(parsed).not.toHaveProperty("businessTypeOther");
+	});
+
 	it("requires the waitlist fields", () => {
 		const result = waitlistSchema.safeParse({ email: "a@b.co" });
 		expect(result.success).toBe(false);
@@ -89,7 +112,12 @@ describe("processForm", () => {
 	});
 
 	it("returns field errors and echoes values on invalid input", async () => {
-		const state = await processForm("contact", contactSchema, fd({ name: "", email: "nope", message: "" }), "1.2.3.4");
+		const state = await processForm(
+			"contact",
+			contactSchema,
+			fd({ name: "", email: "nope", message: "" }),
+			"1.2.3.4",
+		);
 		expect(state.status).toBe("error");
 		expect(state.fieldErrors?.["email"]).toBeDefined();
 		expect(state.values?.["email"]).toBe("nope");
@@ -97,7 +125,12 @@ describe("processForm", () => {
 	});
 
 	it("silently accepts honeypot submissions without storing them", async () => {
-		const state = await processForm("trade", tradeSchema, fd({ ...validTrade, website: "spam.example" }), "1.2.3.4");
+		const state = await processForm(
+			"trade",
+			tradeSchema,
+			fd({ ...validTrade, website: "spam.example" }),
+			"1.2.3.4",
+		);
 		expect(state.status).toBe("success");
 		expect(storeSubmission).not.toHaveBeenCalled();
 	});
