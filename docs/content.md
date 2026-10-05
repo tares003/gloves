@@ -146,10 +146,10 @@ UK spelling. Follow the content rules in docs/brief.md §5 (no reviews, no certi
 **Intro:** Disposable gloves come with a lot of codes on the box. Here's what they mean, so you can pick the right glove for the job.
 
 - **EN ISO 21420** — General requirements for protective gloves: fit, comfort, sizing and labelling.
-- **EN ISO 374-1** — Protection against chemicals. Gloves are rated Type A, B or C depending on how many test chemicals they resist and for how long. The letters on the box show which chemicals were tested.
+- **EN ISO 374-1** — Protection against chemicals. Gloves are rated Type A, B or C depending on how many test chemicals they resist and for how long. On Type A and B gloves, the letters under the flask symbol show which chemicals were tested.
 - **EN ISO 374-5** — Protection against micro-organisms (bacteria and fungi, and viruses where marked "VIRUS").
 - **EN 455** — Standards for medical gloves. IronGrip does not currently sell gloves for medical use.
-- **Food contact** — Gloves for food handling must meet UK food-contact rules and carry the glass-and-fork symbol.
+- **Food contact** — Gloves for food handling must meet UK food-contact rules and be labelled as suitable for food use, usually with the glass-and-fork symbol.
 - **AQL** — Acceptable Quality Level: a measure of how many gloves in a batch may have pinholes. Lower is better.
 - **Thickness** — Measured in millimetres at the fingertip and palm. Thicker usually means tougher; thinner means more feel.
 
