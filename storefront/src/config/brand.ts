@@ -18,7 +18,7 @@ export const brandConfig = {
 	siteName: "IronGrip",
 
 	/** Legal entity name for copyright notices */
-	copyrightHolder: "[Company legal name] Ltd",
+	copyrightHolder: "IronGrip",
 
 	/** Organization name for structured data (JSON-LD) */
 	organizationName: "IronGrip",

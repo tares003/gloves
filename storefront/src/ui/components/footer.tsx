@@ -52,10 +52,13 @@ export async function Footer({ locale, channel }: { locale: string; channel: str
 
 				<div className="mt-12 flex flex-col gap-4 border-t border-inverse pt-8 sm:flex-row sm:items-start sm:justify-between">
 					<p className="max-w-2xl text-xs leading-relaxed text-inverse-muted">
-						© <CurrentYear /> {company.legalName}. Registered in England and Wales, company no.{" "}
-						{company.companyNumber}. Registered office: {company.registeredOffice}.
-						{company.vatNumber ? ` VAT no. ${company.vatNumber}.` : ""} {brandConfig.siteName} is a trading name
-						of {company.legalName}.
+						© <CurrentYear /> {company.legalName ?? brandConfig.siteName}.
+						{company.legalName && company.companyNumber
+							? ` Registered in England and Wales, company no. ${company.companyNumber}.`
+							: ""}
+						{company.registeredOffice ? ` Registered office: ${company.registeredOffice}.` : ""}
+						{company.vatNumber ? ` VAT no. ${company.vatNumber}.` : ""}
+						{company.legalName ? ` ${brandConfig.siteName} is a trading name of ${company.legalName}.` : ""}
 					</p>
 					<ul className="flex items-center gap-6">
 						{legalLinks.map((link) => (

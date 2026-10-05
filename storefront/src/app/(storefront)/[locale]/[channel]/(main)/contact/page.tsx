@@ -45,10 +45,12 @@ export default function ContactPage() {
 									<dd>{company.whatsapp}</dd>
 								</div>
 							) : null}
-							<div>
-								<dt className="font-semibold">Registered office</dt>
-								<dd className="text-muted-foreground">{company.registeredOffice}</dd>
-							</div>
+							{company.registeredOffice ? (
+								<div>
+									<dt className="font-semibold">Registered office</dt>
+									<dd className="text-muted-foreground">{company.registeredOffice}</dd>
+								</div>
+							) : null}
 						</dl>
 					</div>
 					<div className="rounded-card border border-border bg-card p-6 md:p-8">

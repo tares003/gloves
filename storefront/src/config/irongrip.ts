@@ -1,13 +1,14 @@
 import type { NavMenuItem } from "@/lib/menus/serialize-menu-for-nav";
 
 /**
- * IronGrip site-wide facts. Placeholders in [square brackets] must be replaced before launch
- * (UK law requires company name, number and registered office on the website).
+ * IronGrip site-wide facts. A null field is not shown anywhere on the site.
+ * Company name, number and registered office are required by UK law once the company is
+ * incorporated; fill them in then (see docs/missing-details.md).
  */
 export const company = {
-	legalName: "[Company legal name] Ltd",
-	companyNumber: "[number]",
-	registeredOffice: "[Registered office address]",
+	legalName: null as string | null,
+	companyNumber: null as string | null,
+	registeredOffice: null as string | null,
 	vatNumber: null as string | null,
 	email: "hello@irongrip.uk",
 	tradeEmail: "trade@irongrip.uk",
