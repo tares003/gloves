@@ -1,0 +1,60 @@
+# Production on the shared VM (81.0.249.46).
+#
+# That VM already has a Caddy on ports 80/443 (container anwarul-uloom-caddy-1),
+# shared by every site on it. So IronGrip does not run its own Caddy: the shared
+# one serves our four hostnames from /data/sites/irongrip.caddy (see
+# deploy/irongrip.caddy) and reaches these containers over its Docker network.
+# Postgres, Valkey and the worker stay on IronGrip's private default network.
+# Nothing is published on the host.
+#
+# The shared network already has other projects' "db" and "redis" containers,
+# so a container on both networks can't rely on short names like "db": the
+# connection strings use the unique irongrip-db / irongrip-cache aliases.
+
+x-backend-urls: &backend-urls
+  DATABASE_URL: postgres://${POSTGRES_USER:-saleor}:${POSTGRES_PASSWORD}@irongrip-db:5432/saleor
+  CACHE_URL: redis://irongrip-cache:6379/0
+  CELERY_BROKER_URL: redis://irongrip-cache:6379/1
+
+services:
+  caddy:
+    profiles: ["disabled"]
+
+  db:
+    networks:
+      default:
+        aliases: [irongrip-db]
+
+  cache:
+    networks:
+      default:
+        aliases: [irongrip-cache]
+
+  worker:
+    environment: *backend-urls
+
+  api:
+    environment: *backend-urls
+    networks:
+      default:
+      shared-proxy:
+        aliases: [irongrip-api]
+
+  dashboard:
+    networks:
+      default:
+      shared-proxy:
+        aliases: [irongrip-dashboard]
+
+  storefront:
+    environment:
+      FORMS_DATABASE_URL: postgres://${POSTGRES_USER:-saleor}:${POSTGRES_PASSWORD}@irongrip-db:5432/forms
+    networks:
+      default:
+      shared-proxy:
+        aliases: [irongrip-storefront]
+
+networks:
+  shared-proxy:
+    name: anwarul-uloom_aul_net
+    external: true

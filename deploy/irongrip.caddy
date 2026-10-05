@@ -1,0 +1,56 @@
+# IronGrip (irongrip.uk) — site blocks for the VM's shared Caddy.
+#
+# The shared Caddy is container anwarul-uloom-caddy-1 (compose project
+# /opt/anwarul-uloom). This file is copied to its data volume as
+# /data/sites/irongrip.caddy and pulled in by one line at the end of
+# /opt/anwarul-uloom/Caddyfile:
+#
+#   import /data/sites/irongrip.caddy
+#
+# The IronGrip containers join that Caddy's network (anwarul-uloom_aul_net)
+# under the irongrip-* aliases; see api/docker-compose.override.yml.
+# Basic auth for the Dashboard: ADMIN_BASIC_AUTH_HASH_HERE is replaced with the
+# bcrypt hash from api/.env when the file is installed.
+# After editing: caddy validate, then caddy reload (never restart).
+
+irongrip.uk {
+	encode zstd gzip
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		-Server
+	}
+	reverse_proxy irongrip-storefront:3000
+
+	log {
+		output file /data/access-irongrip.log {
+			roll_size 10mb
+			roll_keep 5
+			roll_keep_for 720h
+		}
+		format console
+	}
+}
+
+www.irongrip.uk {
+	redir https://irongrip.uk{uri} permanent
+}
+
+# Saleor GraphQL API + media
+api.irongrip.uk {
+	encode zstd gzip
+	header -Server
+	reverse_proxy irongrip-api:8000
+}
+
+# Saleor Dashboard — extra basic-auth layer in front of Saleor's own login
+admin.irongrip.uk {
+	encode zstd gzip
+	basic_auth {
+		admin ADMIN_BASIC_AUTH_HASH_HERE
+	}
+	header -Server
+	reverse_proxy irongrip-dashboard:80
+}

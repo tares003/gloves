@@ -27,7 +27,10 @@ const RECIPIENT_ENV: Record<FormKind, string> = {
 };
 
 function escapeHtml(value: string) {
-	return value.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c] ?? c);
+	return value.replace(
+		/[&<>"']/g,
+		(c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c] ?? c,
+	);
 }
 
 export async function notifySubmission(
@@ -37,7 +40,7 @@ export async function notifySubmission(
 ): Promise<boolean> {
 	const transport = getTransporter();
 	const to = process.env[RECIPIENT_ENV[kind]] || process.env["FORMS_NOTIFY_EMAIL"] || "hello@irongrip.uk";
-	const from = process.env["FORMS_FROM_EMAIL"] || "IronGrip website <website@irongrip.uk>";
+	const from = process.env["FORMS_FROM_EMAIL"] || "IronGrip <noreply@irongrip.uk>";
 	if (!transport) {
 		console.warn("[forms] SMTP_URL not set — notification not sent");
 		return false;

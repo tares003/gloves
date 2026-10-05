@@ -88,7 +88,7 @@ services:
       SMTP_URL: ${SMTP_URL:-}
       FORMS_NOTIFY_EMAIL: ${FORMS_NOTIFY_EMAIL:-hello@irongrip.uk}
       FORMS_TRADE_EMAIL: ${FORMS_TRADE_EMAIL:-trade@irongrip.uk}
-      FORMS_FROM_EMAIL: ${FORMS_FROM_EMAIL:-IronGrip website <website@irongrip.uk>}
+      FORMS_FROM_EMAIL: ${FORMS_FROM_EMAIL:-IronGrip <noreply@irongrip.uk>}
       TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY:-}
     expose:
       - "3000"
