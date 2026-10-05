@@ -1,10 +1,11 @@
 /**
  * IronGrip logo.
  *
- * - default: horizontal wordmark (`/brand/logo-horizontal.png`) — works on light and dark surfaces
+ * - default: horizontal wordmark (`/brand/logo-horizontal.webp`) — works on light and dark surfaces
  * - `inverted`: stacked wordmark for dark bands (footer)
  *
- * TODO(brand): replace PNGs with vector SVGs once the final logo files arrive.
+ * TODO(brand): replace these rasters with vector SVGs once the final logo files arrive.
+ * The WebP files are converted from the PNGs beside them (much smaller, same look).
  */
 
 interface LogoProps {
@@ -16,7 +17,7 @@ interface LogoProps {
 }
 
 export const Logo = ({ className, ariaLabel = "IronGrip", inverted = false }: LogoProps) => {
-	const src = inverted ? "/brand/logo-stacked.png" : "/brand/logo-horizontal.png";
+	const src = inverted ? "/brand/logo-stacked.webp" : "/brand/logo-horizontal.webp";
 	const [width, height] = inverted ? [279, 137] : [467, 101];
 
 	return (
@@ -29,6 +30,8 @@ export const Logo = ({ className, ariaLabel = "IronGrip", inverted = false }: Lo
 			className={className}
 			style={{ aspectRatio: `${width} / ${height}` }}
 			decoding="async"
+			// The stacked logo only appears in the footer, far below the fold.
+			loading={inverted ? "lazy" : undefined}
 		/>
 	);
 };

@@ -17,6 +17,19 @@ const barlowCondensed = localFont({
 	adjustFontFallback: "Arial",
 });
 
+/**
+ * Monospace face (Geist Mono, SIL OFL), used only at checkout. Copied from the `geist` package so it
+ * can load with `preload: false`: the package's own `GeistMono` preloads its 70 KB file on every
+ * route, which slowed the first paint of the marketing pages.
+ */
+export const geistMono = localFont({
+	src: "../fonts/geist-mono-variable.woff2",
+	variable: "--font-geist-mono",
+	preload: false,
+	adjustFontFallback: false,
+	fallback: ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "monospace"],
+});
+
 export type RootHtmlFontProps = {
 	lang: string;
 	className: string;

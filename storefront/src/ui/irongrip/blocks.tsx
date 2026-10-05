@@ -83,7 +83,7 @@ export function PageHeader({
 		<header className="relative overflow-hidden bg-foreground text-background">
 			<div
 				aria-hidden="true"
-				className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 bg-[url('/brand/textures/angular.png')] bg-contain bg-right bg-no-repeat opacity-20 md:block"
+				className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 bg-[url('/brand/textures/angular.webp')] bg-contain bg-right bg-no-repeat opacity-20 md:block"
 			/>
 			<div className="container-content relative py-section-sm">
 				{eyebrow ? <Eyebrow inverse>{eyebrow}</Eyebrow> : null}
