@@ -1,10 +1,13 @@
 import { type Metadata } from "next";
+import Image from "next/image";
+import { PHOTOS } from "@/config/photos";
 import { Band, Eyebrow, InfoCard, PageHeader, Steps } from "@/ui/irongrip/blocks";
 import { WaitlistForm } from "@/ui/irongrip/forms/waitlist-form";
 
 export const metadata: Metadata = {
 	title: { absolute: "Glove Subscription UK — Never Run Out | IronGrip" },
-	description: "Regular glove deliveries at subscriber prices. Change, skip or cancel any time. Join the waitlist.",
+	description:
+		"Regular glove deliveries at subscriber prices. Change, skip or cancel any time. Join the waitlist.",
 };
 
 const PLANS = [
@@ -23,10 +26,22 @@ export default function SubscribePage() {
 			/>
 
 			<Band labelledBy="sub-how">
-				<Eyebrow>How it will work</Eyebrow>
-				<h2 id="sub-how" className="mt-3 text-h2">
-					Set it once. Stay stocked.
-				</h2>
+				<div className="grid items-center gap-8 lg:grid-cols-[1fr_auto]">
+					<div>
+						<Eyebrow>How it will work</Eyebrow>
+						<h2 id="sub-how" className="mt-3 text-h2">
+							Set it once. Stay stocked.
+						</h2>
+					</div>
+					<Image
+						src={PHOTOS.puttingOn.src}
+						alt={PHOTOS.puttingOn.alt}
+						width={PHOTOS.puttingOn.width}
+						height={PHOTOS.puttingOn.height}
+						sizes="(min-width: 1024px) 400px, 90vw"
+						className="h-auto w-full max-w-[400px] rounded-card shadow-card"
+					/>
+				</div>
 				<div className="mt-8">
 					<Steps
 						steps={[

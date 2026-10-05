@@ -1,18 +1,27 @@
 import { type Metadata } from "next";
+import { PHOTOS } from "@/config/photos";
 import { Band, Eyebrow, InfoCard, PageHeader, Steps } from "@/ui/irongrip/blocks";
+import { PhotoStrip } from "@/ui/irongrip/photo-strip";
 import { TradeForm } from "@/ui/irongrip/forms/trade-form";
 
 export const metadata: Metadata = {
 	title: { absolute: "Trade Glove Supplier UK — Trade Accounts | IronGrip" },
-	description: "Volume pricing, mixed-size orders and VAT invoices for UK businesses. Request a trade account.",
+	description:
+		"Volume pricing, mixed-size orders and VAT invoices for UK businesses. Request a trade account.",
 };
 
 const BENEFITS = [
 	{ title: "Volume pricing", text: "Better prices as your order grows, with no huge minimum." },
 	{ title: "Mixed-size orders", text: "Order the sizes your team actually wears." },
 	{ title: "Regular deliveries", text: "Set a schedule and we'll keep you stocked." },
-	{ title: "Invoices for your books", text: "VAT invoices on every order. Payment terms available for approved accounts." },
-	{ title: "Samples", text: "Try before you commit. Available to approved trade accounts while stocks last." },
+	{
+		title: "Invoices for your books",
+		text: "VAT invoices on every order. Payment terms available for approved accounts.",
+	},
+	{
+		title: "Samples",
+		text: "Try before you commit. Available to approved trade accounts while stocks last.",
+	},
 ];
 
 export default function TradePage() {
@@ -35,6 +44,7 @@ export default function TradePage() {
 						</InfoCard>
 					))}
 				</div>
+				<PhotoStrip className="mt-10" photos={[PHOTOS.warehouse, PHOTOS.plumbing, PHOTOS.construction]} />
 			</Band>
 
 			<Band labelledBy="trade-how" tone="muted">

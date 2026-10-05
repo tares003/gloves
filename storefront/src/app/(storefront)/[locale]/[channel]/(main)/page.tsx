@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { Car, Home, Scissors, SprayCan, UtensilsCrossed } from "lucide-react";
 import { type Metadata } from "next";
+import { PHOTOS } from "@/config/photos";
 import { Band, CtaLink, Eyebrow, InfoCard } from "@/ui/irongrip/blocks";
+import { PhotoStrip } from "@/ui/irongrip/photo-strip";
 
 export const metadata: Metadata = {
 	title: { absolute: "IronGrip — Premium Nitrile Gloves for UK Trades & Businesses" },
@@ -67,7 +69,10 @@ export default function HomePage() {
 	return (
 		<>
 			{/* Hero */}
-			<section aria-labelledby="home-hero-heading" className="relative overflow-hidden bg-foreground text-background">
+			<section
+				aria-labelledby="home-hero-heading"
+				className="relative overflow-hidden bg-foreground text-background"
+			>
 				<div
 					aria-hidden="true"
 					className="pointer-events-none absolute inset-0 bg-[url('/brand/textures/industrial.png')] bg-cover bg-center opacity-10"
@@ -91,13 +96,13 @@ export default function HomePage() {
 					</div>
 					<div className="flex justify-center lg:justify-end">
 						<Image
-							src="/brand/logo-main.png"
-							alt="IronGrip logo"
-							width={797}
-							height={455}
+							src={PHOTOS.gripPipe.src}
+							alt={PHOTOS.gripPipe.alt}
+							width={PHOTOS.gripPipe.width}
+							height={PHOTOS.gripPipe.height}
 							priority
-							sizes="(min-width: 1024px) 560px, 90vw"
-							className="h-auto w-full max-w-[560px]"
+							sizes="(min-width: 1024px) 350px, 80vw"
+							className="h-auto w-full max-w-[350px] rounded-card shadow-card"
 						/>
 					</div>
 				</div>
@@ -119,6 +124,17 @@ export default function HomePage() {
 						</li>
 					))}
 				</ul>
+				<PhotoStrip
+					className="mt-10"
+					photos={[
+						PHOTOS.automotive,
+						PHOTOS.cleaning,
+						PHOTOS.construction,
+						PHOTOS.engineering,
+						PHOTOS.warehouse,
+						PHOTOS.diy,
+					]}
+				/>
 			</Band>
 
 			{/* Product families */}
@@ -171,8 +187,8 @@ export default function HomePage() {
 						/>
 						<h3 className="relative text-h2 uppercase">Gloves on autopilot.</h3>
 						<p className="relative mt-4 max-w-md text-inverse">
-							Tell us what you use each month. We&apos;ll deliver before you run out, with subscriber pricing and
-							free delivery. Change sizes, skip a month or cancel in two clicks.
+							Tell us what you use each month. We&apos;ll deliver before you run out, with subscriber pricing
+							and free delivery. Change sizes, skip a month or cancel in two clicks.
 						</p>
 						<div className="relative mt-8">
 							<CtaLink href="/subscribe">Join the waitlist</CtaLink>
@@ -181,8 +197,8 @@ export default function HomePage() {
 					<div className="rounded-card border border-border bg-card p-8 md:p-10">
 						<h3 className="text-h2 uppercase">Buying for a workshop, salon or cleaning team?</h3>
 						<p className="mt-4 max-w-md text-muted-foreground">
-							Trade accounts get volume pricing, mixed-size orders and invoices for your accounts. Tell us what
-							you use and we&apos;ll come back with a quote.
+							Trade accounts get volume pricing, mixed-size orders and invoices for your accounts. Tell us
+							what you use and we&apos;ll come back with a quote.
 						</p>
 						<div className="mt-8">
 							<CtaLink href="/trade" variant="outline">

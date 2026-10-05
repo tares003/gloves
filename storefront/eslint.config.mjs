@@ -50,6 +50,8 @@ const graphqlConfigBlock = {
 const NEXT_IMAGE_ALLOWED_FILES = [
 	// IronGrip: local brand rasters (not catalog imagery).
 	"src/app/(storefront)/[[]locale]/[[]channel]/(main)/page.tsx",
+	"src/app/(storefront)/[[]locale]/[[]channel]/(main)/subscribe/page.tsx",
+	"src/ui/irongrip/photo-strip.tsx",
 	"src/ui/atoms/saleor-image.tsx",
 	"src/ui/atoms/product-image-wrapper.tsx",
 	"src/ui/components/order-list-item.tsx",
