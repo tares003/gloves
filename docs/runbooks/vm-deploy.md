@@ -49,10 +49,17 @@ Sent through the VM's Stalwart server (`mail.properslang.com`, compose project `
 
 - Domain `irongrip.uk`: manual DNS, automatic DKIM (RSA + Ed25519, selectors `v1-*-20261005`), reports to postmaster@.
 - Mailboxes: `hello@irongrip.uk` (alias `postmaster@`) and `trade@irongrip.uk` (shared by the owners).
-  Mail to hello@ is also copied to trade@ (a filter in hello@'s mailbox).
+  Mail to hello@ is also copied to trade@ by a filter in hello@'s mailbox (set up by the owner in webmail).
 - `noreply@irongrip.uk`: sending-only account; the storefront (`SMTP_URL`) and Saleor (`EMAIL_URL`) log in
   with it on port 465. Set by `bash deploy/set-mail-login.sh` on the Mac (tests the login first).
-- DNS records to add in Cloudflare: `docs/runbooks/irongrip-mail-dns.txt`.
+- Mail apps use `mail.irongrip.uk` (IMAP 993 / SMTP 465, SSL/TLS, full address as username). Certificate
+  `*.irongrip.uk` from Let's Encrypt, issued 2026-10-05 by Stalwart (ACME DNS-01, auto-renews) using the Cloudflare
+  token "Stalwart mail server (DNS + certificates)", which includes the irongrip.uk zone. Stalwart publishes DKIM,
+  SPF, SRV and TLS-RPT through it (domain set to automatic DNS with only those record types). A, MX
+  (`mail.irongrip.uk`) and DMARC (`p=quarantine`) are set by hand: `docs/runbooks/irongrip-mail-dns.txt`.
+- `https://mail.irongrip.uk` in a browser does not work by design: port 443 is the shared Caddy, which has no
+  site for it. Webmail stays behind the ssh tunnel.
+- Temporary passwords for hello@, trade@ and noreply@: `/root/irongrip-credentials.txt` on the VM.
 - Admin panel: `bash scripts/mail-admin-tunnel.sh` in the properslang repo → http://localhost:18080/admin.
 
 ## Rollback (remove IronGrip entirely)

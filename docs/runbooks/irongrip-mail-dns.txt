@@ -1,13 +1,12 @@
-; DNS records for irongrip.uk email (Stalwart on mail.properslang.com), from Stalwart's zone file, 2026-10-05.
+; DNS records for irongrip.uk email, added BY HAND in Cloudflare (2026-10-05).
 ; Import: Cloudflare → irongrip.uk → DNS → Records → Import and Export → Import DNS records → this file.
-; (Or add each record by hand.) Leave the existing A records for @, www, api, admin untouched.
-; Left out on purpose, as for the other domains: MTA-STS, autoconfig/autodiscover, CalDAV/CardDAV/JMAP/POP3 SRV.
-; DMARC starts at p=quarantine (Stalwart suggested p=reject) while the domain is new.
-irongrip.uk.	3600	IN	MX	10 mail.properslang.com.
-irongrip.uk.	3600	IN	TXT	"v=spf1 mx -all"
-v1-ed25519-20261005._domainkey.irongrip.uk.	3600	IN	TXT	"v=DKIM1; k=ed25519; h=sha256; p=FmKxVrvMoW2OHjvpPDbK0SpcRJV8QJCS1bBBNeGGQc8="
-v1-rsa-20261005._domainkey.irongrip.uk.	3600	IN	TXT	"v=DKIM1; k=rsa; h=sha256; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwUmuGsv5XnIpihcU15kb1z9BYkCAXRF4JpN6b4XvU7jsq1/XXUxJ0F1tWXPmD5eQW1n+koYP6n8oN4dSNOR5qBoqLPCQYadvrPp71RKw5+tqQWVvcutIL/EzC4rVBKCmBoETwizMWDDA3p0d0HJtHJWZuENevOWwFOBlU7Bd+YlJrFEzO0Jps13" "QZ+iyJx/T7hGP8MgL1KEh6WLEmBKc/R/sYaT5gdWWN1Z+WqO+3N+BgucVv/iMijQYQHAQkEQ2RbA3Kv5yOKwkMAt5yd8bKI0PaP07TzuelhvmK/83vP4iXlzEv91yeTALE4rXeCnUD6+oSljLS1yb2ARHOxHpcQIDAQAB"
+; Keep "Proxy status" OFF (DNS only) for mail.irongrip.uk: a mail server can't sit behind Cloudflare's proxy.
+; Leave the existing A records for @, www, api, admin untouched.
+;
+; Everything else (DKIM keys, SPF, SRV, TLS reporting) is published by Stalwart itself through the
+; "Stalwart mail server (DNS + certificates)" Cloudflare token, once that token includes the irongrip.uk zone.
+; Stalwart also gets the TLS certificate for mail.irongrip.uk through that token (DNS-01).
+; DMARC is added here rather than by Stalwart so it can start at p=quarantine while the domain is new.
+mail.irongrip.uk.	3600	IN	A	81.0.249.46
+irongrip.uk.	3600	IN	MX	10 mail.irongrip.uk.
 _dmarc.irongrip.uk.	3600	IN	TXT	"v=DMARC1; p=quarantine; rua=mailto:postmaster@irongrip.uk"
-_smtp._tls.irongrip.uk.	3600	IN	TXT	"v=TLSRPTv1; rua=mailto:postmaster@irongrip.uk"
-_imaps._tcp.irongrip.uk.	3600	IN	SRV	0 1 993 mail.properslang.com.
-_submissions._tcp.irongrip.uk.	3600	IN	SRV	0 1 465 mail.properslang.com.
