@@ -75,7 +75,7 @@ export default function HomePage() {
 			>
 				<div
 					aria-hidden="true"
-					className="pointer-events-none absolute inset-0 bg-[url('/brand/textures/industrial.png')] bg-cover bg-center opacity-10"
+					className="pointer-events-none absolute inset-0 bg-[url('/brand/textures/industrial.webp')] bg-cover bg-center opacity-10"
 				/>
 				<div className="container-content relative grid items-center gap-10 py-section-md lg:grid-cols-2">
 					<div>
@@ -101,8 +101,8 @@ export default function HomePage() {
 							width={PHOTOS.gripPipe.width}
 							height={PHOTOS.gripPipe.height}
 							priority
-							sizes="(min-width: 1024px) 350px, 80vw"
-							className="h-auto w-full max-w-[350px] rounded-card shadow-card"
+							sizes="350px"
+							className="aspect-[4/3] w-full max-w-[350px] rounded-card object-cover object-[50%_45%] shadow-card lg:aspect-auto lg:h-auto"
 						/>
 					</div>
 				</div>
@@ -183,7 +183,7 @@ export default function HomePage() {
 					<div className="relative overflow-hidden rounded-card bg-foreground p-8 text-background md:p-10">
 						<div
 							aria-hidden="true"
-							className="pointer-events-none absolute -right-10 -top-6 h-48 w-72 bg-[url('/brand/textures/splatter.png')] bg-contain bg-no-repeat opacity-30"
+							className="pointer-events-none absolute -right-10 -top-6 h-48 w-72 bg-[url('/brand/textures/splatter.webp')] bg-contain bg-no-repeat opacity-30"
 						/>
 						<h3 className="relative text-h2 uppercase">Gloves on autopilot.</h3>
 						<p className="relative mt-4 max-w-md text-inverse">

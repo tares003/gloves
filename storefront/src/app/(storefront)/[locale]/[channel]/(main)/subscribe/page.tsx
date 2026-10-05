@@ -38,8 +38,9 @@ export default function SubscribePage() {
 						alt={PHOTOS.puttingOn.alt}
 						width={PHOTOS.puttingOn.width}
 						height={PHOTOS.puttingOn.height}
+						priority
 						sizes="(min-width: 1024px) 400px, 90vw"
-						className="h-auto w-full max-w-[400px] rounded-card shadow-card"
+						className="h-auto w-full max-w-[400px] rounded-card shadow-card lg:w-[400px]"
 					/>
 				</div>
 				<div className="mt-8">
