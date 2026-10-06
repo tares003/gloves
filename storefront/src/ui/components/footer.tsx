@@ -57,7 +57,6 @@ export async function Footer({ locale, channel }: { locale: string; channel: str
 							? ` Registered in England and Wales, company no. ${company.companyNumber}.`
 							: ""}
 						{company.registeredOffice ? ` Registered office: ${company.registeredOffice}.` : ""}
-						{company.vatNumber ? ` VAT no. ${company.vatNumber}.` : ""}
 						{company.legalName ? ` ${brandConfig.siteName} is a trading name of ${company.legalName}.` : ""}
 					</p>
 					<ul className="flex items-center gap-6">

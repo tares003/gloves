@@ -14,7 +14,6 @@ the website. Add them as soon as the company exists.
 | Company legal name (e.g. "IronGrip Ltd") | `storefront/src/config/irongrip.ts` → `company.legalName`; also `src/config/brand.ts` → `copyrightHolder` | `[Company legal name] Ltd` in the footer and on every legal page |
 | Company number | `company.companyNumber` | `[number]` in the footer |
 | Registered office address | `company.registeredOffice` | `[Registered office address]` in the footer, on Contact and on every legal page |
-| VAT number (if registered) | `company.vatNumber` | nothing (already hidden) |
 | WhatsApp number | `company.whatsapp` | nothing (already hidden) |
 | TikTok / Instagram | `company.social` | nothing (already hidden) |
 

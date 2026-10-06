@@ -60,7 +60,7 @@ const REASONS = [
 	},
 	{
 		title: "A UK team you can actually talk to",
-		text: "Real people answering the phone and WhatsApp, not a ticket queue.",
+		text: "Real people answering your emails, not a ticket queue.",
 		icon: "/brand/icons/uk-brand.png",
 	},
 ];

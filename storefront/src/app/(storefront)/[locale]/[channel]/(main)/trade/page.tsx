@@ -6,18 +6,13 @@ import { TradeForm } from "@/ui/irongrip/forms/trade-form";
 
 export const metadata: Metadata = {
 	title: { absolute: "Trade Glove Supplier UK — Trade Accounts | IronGrip" },
-	description:
-		"Volume pricing, mixed-size orders and VAT invoices for UK businesses. Request a trade account.",
+	description: "Volume pricing and mixed-size orders for UK businesses. Request a trade account.",
 };
 
 const BENEFITS = [
 	{ title: "Volume pricing", text: "Better prices as your order grows, with no huge minimum." },
 	{ title: "Mixed-size orders", text: "Order the sizes your team actually wears." },
 	{ title: "Regular deliveries", text: "Set a schedule and we'll keep you stocked." },
-	{
-		title: "Invoices for your books",
-		text: "VAT invoices on every order. Payment terms available for approved accounts.",
-	},
 	{
 		title: "Samples",
 		text: "Try before you commit. Available to approved trade accounts while stocks last.",
@@ -30,7 +25,7 @@ export default function TradePage() {
 			<PageHeader
 				eyebrow="Trade"
 				title="Trade accounts for UK businesses."
-				intro="Volume pricing, mixed sizes and a supplier who picks up the phone."
+				intro="Volume pricing, mixed sizes and a supplier who actually replies."
 			/>
 
 			<Band labelledBy="trade-benefits">

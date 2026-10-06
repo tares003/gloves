@@ -9,7 +9,6 @@ export const company = {
 	legalName: null as string | null,
 	companyNumber: null as string | null,
 	registeredOffice: null as string | null,
-	vatNumber: null as string | null,
 	email: "hello@irongrip.uk",
 	tradeEmail: "trade@irongrip.uk",
 	whatsapp: null as string | null,

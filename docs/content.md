@@ -21,7 +21,7 @@ UK spelling. Follow the content rules in docs/brief.md §5 (no reviews, no certi
 - Business: Trade accounts · Subscription · Quality & standards
 - Help: FAQ · Delivery & returns · Contact
 - Legal: Privacy · Terms · Cookies
-**Footer legal line:** © 2026 [Company legal name] Ltd. Registered in England and Wales, company no. [number]. Registered office: [address]. [VAT no. if registered]
+**Footer legal line:** © 2026 [Company legal name] Ltd. Registered in England and Wales, company no. [number]. Registered office: [address].
 
 ---
 
@@ -53,7 +53,7 @@ UK spelling. Follow the content rules in docs/brief.md §5 (no reviews, no certi
 1. **Trade pricing without the minimums.** Fair prices for a one-person business, not just for buyers of whole pallets.
 2. **Never run out.** Set up a regular delivery and change, pause or cancel whenever you like. *(Launching soon.)*
 3. **Straight answers on standards.** Every product page will show its standards, thickness and pack size in plain English — and documents on request.
-4. **A UK team you can actually talk to.** Real people answering the phone and WhatsApp, not a ticket queue.
+4. **A UK team you can actually talk to.** Real people answering your emails, not a ticket queue.
 
 ### Subscription teaser
 **Title:** Gloves on autopilot.
@@ -96,13 +96,12 @@ UK spelling. Follow the content rules in docs/brief.md §5 (no reviews, no certi
 ## Trade `/trade`
 
 **Headline:** Trade accounts for UK businesses.
-**Subheadline:** Volume pricing, mixed sizes and a supplier who picks up the phone.
+**Subheadline:** Volume pricing, mixed sizes and a supplier who actually replies.
 
 **Benefits:**
 - **Volume pricing** — Better prices as your order grows, with no huge minimum.
 - **Mixed-size orders** — Order the sizes your team actually wears.
 - **Regular deliveries** — Set a schedule and we'll keep you stocked.
-- **Invoices for your books** — VAT invoices on every order. [Payment terms for approved accounts — confirm before launch]
 - **Samples** — Try before you commit. *(Available to approved trade accounts while stocks last.)*
 
 **How it works:**
@@ -190,7 +189,7 @@ We work directly with established manufacturers and check the paperwork, so you 
 Our first range is launching soon. Register for early access and we'll email you as soon as it's live.
 
 **Do you supply businesses?**
-Yes. Trade accounts get volume pricing, mixed-size orders and VAT invoices. Request one on our Trade page.
+Yes. Trade accounts get volume pricing, mixed-size orders. Request one on our Trade page.
 
 **Do you deliver across the UK?**
 Yes, we'll deliver to UK mainland addresses. Delivery prices and timescales will be shown at checkout. [Confirm Highlands, Islands and Northern Ireland before launch.]
@@ -221,7 +220,7 @@ Choose your gloves and how often you want them. You can change, skip or cancel o
 |---|---|---|
 | Home | IronGrip — Premium Nitrile Gloves for UK Trades & Businesses | Heavy-duty and everyday nitrile gloves for workshops, detailers, cleaners and salons. Trade pricing and a glove subscription. Launching soon. |
 | Products | Nitrile Gloves — Heavy Duty, Everyday & Food Safe \| IronGrip | Explore the IronGrip range of premium disposable nitrile gloves for UK businesses. |
-| Trade | Trade Glove Supplier UK — Trade Accounts \| IronGrip | Volume pricing, mixed-size orders and VAT invoices for UK businesses. Request a trade account. |
+| Trade | Trade Glove Supplier UK — Trade Accounts \| IronGrip | Volume pricing and mixed-size orders for UK businesses. Request a trade account. |
 | Subscribe | Glove Subscription UK — Never Run Out \| IronGrip | Regular glove deliveries at subscriber prices. Change, skip or cancel any time. Join the waitlist. |
 | Quality | Glove Standards Explained — EN ISO 374, EN 455 \| IronGrip | What the codes on a glove box mean, in plain English. |
 | About | About IronGrip | UK supplier of premium gloves for people who work with their hands. |
